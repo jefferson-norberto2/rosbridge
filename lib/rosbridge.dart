@@ -1,5 +1,5 @@
 // Copyright (c) 2019 Conrad Heidebrecht.
 
-library roslib;
+library rosbridge;
 
 export 'core/core.dart';

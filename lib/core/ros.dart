@@ -16,6 +16,7 @@ import 'request.dart';
 
 /// Status enums.
 enum Status { none, connecting, connected, closed, errored }
+
 enum TopicStatus {
   subscribed,
   unsubscribed,
@@ -70,12 +71,13 @@ class Ros {
   Status status = Status.none;
 
   /// Connect to the ROS node, the [url] can override what was provided in the constructor.
-  void connect({dynamic url}) {
+  Future<void> connect({dynamic url}) async {
     this.url = url ?? this.url;
     url ??= this.url;
     try {
       // Initialize the connection to the ROS node with a Websocket channel.
       _channel = initializeWebSocketChannel(url);
+      await _channel.ready;
       stream =
           _channel.stream.asBroadcastStream().map((raw) => json.decode(raw));
       // Update the connection status.
@@ -95,7 +97,7 @@ class Ros {
         status = Status.closed;
         _statusController.add(status);
       });
-    } on WebSocketChannelException  {
+    } on WebSocketChannelException {
       status = Status.errored;
       _statusController.add(status);
     }
@@ -152,7 +154,7 @@ class Ros {
   /// Sends a set_level request to the server.
   /// [level] can be one of {none, error, warning, info}, and
   /// [id] is the optional operation ID to change status level on
-  void setStatusLevel({String ?level, int ?id}) {
+  void setStatusLevel({String? level, int? id}) {
     send({
       'op': 'set_level',
       'level': level,
@@ -183,6 +185,7 @@ class Ros {
     serviceCallers++;
     return 'call_service:' + name + ':' + ids.toString();
   }
+
   @override
   bool operator ==(other) {
     return other.hashCode == hashCode;

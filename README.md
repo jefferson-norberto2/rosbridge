@@ -1,3 +1,10 @@
+# This repository is a fork from roslibdart.
+
+All code was forked from [roslibdart](https://pub.dev/packages/roslibdart).
+
+
+# The documentation is all from original code.
+
 # roslibdart
 
 The is a fork of the original roslib by Eternali Conrad Heidebrecht (@Eternali), Artur Rymarz (@artrmz), TimWhiting Tim Whiting (@TimWhiting). roslibdart is a library for communicating to a ROS node over websockets with rosbridge. It is heavily influenced by roslibjs and follows the same structure. This fork is an effort to update the library and make it compatible to null safety, dart2 and ros2.
@@ -123,12 +130,6 @@ Future<Map<String, dynamic>>? serviceHandler(Map<String, dynamic> args) async {
   return response;
 }
 ```
-
-## Playstsation control pad to control turtlesim
-
-Please take a look at example/pspad
-
-![PS Pad Screenshot](./example/pspad/doc/pspad-screenshot.png)
 
 ## Links
 - [ROSBridge Protocol v2.0](https://github.com/biobotus/rosbridge_suite/blob/master/ROSBRIDGE_PROTOCOL.md).

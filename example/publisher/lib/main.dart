@@ -1,30 +1,29 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:roslibdart/roslibdart.dart';
+import 'package:rosbridge/core/ros.dart';
+import 'package:rosbridge/core/topic.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Roslibdart Publisher Example',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: const MyHomePage(title: 'Roslibdart Publisher Example'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({super.key, required this.title});
 
   final String title;
 
@@ -40,12 +39,13 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     ros = Ros(url: 'ws://127.0.0.1:9090');
     chatter = Topic(
-        ros: ros,
-        name: '/topic',
-        type: "std_msgs/String",
-        reconnectOnClose: true,
-        queueLength: 10,
-        queueSize: 10);
+      ros: ros,
+      name: '/topic',
+      type: "std_msgs/String",
+      reconnectOnClose: true,
+      queueLength: 10,
+      queueSize: 10,
+    );
     super.initState();
     ros.connect();
 
@@ -80,9 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // in the middle of the parent.
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(msgToPublished.toString() + ' published'),
-          ],
+          children: <Widget>[Text('$msgToPublished published')],
         ),
       ),
     );
