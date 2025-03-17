@@ -11,3 +11,9 @@
 
 ## [0.0.1-dev+3] - 2022-2-25
 - Added pspad
+
+## [0.0.2-dev+4] - 2024-3-17
+- Remove pspad
+- Update sdk and dependencies
+- Fixe error when erro connect
+- Update examples
